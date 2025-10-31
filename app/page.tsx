@@ -80,7 +80,7 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 flex h-full items-center justify-center">
-          <div ref={heroRef} className="mx-auto max-w-4xl px-6 text-center">
+          <div ref={heroRef} className="mx-auto max-w-4xl px-6 text-center mt-12 md:mt-24">
             <VariableProximity
               label="Welcome to MyLGU"
               fromFontVariationSettings="'wght' 500"
@@ -93,10 +93,29 @@ export default function Home() {
             </p>
           </div>
         </div>
+        <a
+          href="#highlights"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-zinc-300/70 hover:text-white transition-colors"
+          aria-label="Scroll down"
+        >
+          <svg
+            className="h-6 w-6 animate-bounce"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+          <span className="mt-2 text-xs tracking-wide">Scroll down</span>
+        </a>
       </section>
 
       {/* Section 2: Masonry showcase */}
-      <section className="relative isolate overflow-hidden h-screen snap-start flex items-center justify-center bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a]">
+      <section id="highlights" className="relative isolate overflow-hidden h-screen snap-start flex items-center justify-center bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Aurora
             colorStops={["#1e293b", "#2563eb", "#22d3ee"]}
