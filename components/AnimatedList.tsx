@@ -84,6 +84,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [keyboardNav, setKeyboardNav] = useState<boolean>(false);
   const [topGradientOpacity, setTopGradientOpacity] = useState<number>(0);
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
+  const [isDark, setIsDark] = useState<boolean>(false);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } =
@@ -147,19 +148,33 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     setKeyboardNav(false);
   }, [selectedIndex, keyboardNav]);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    const update = () => setIsDark(root.classList.contains("dark"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={`relative w-full max-w-[500px] mx-auto ${className}`}>
       <div
         ref={listRef}
         className={`w-full max-h-[400px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-thumb]:rounded-[4px]"
+            ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-thumb]:rounded-[4px] [&::-webkit-scrollbar-track]:bg-slate-100 dark:[&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar-thumb]:bg-slate-400 dark:[&::-webkit-scrollbar-thumb]:bg-[#222]"
             : "scrollbar-hide"
         }`}
         onScroll={handleScroll}
         style={{
           scrollbarWidth: displayScrollbar ? "thin" : "none",
-          scrollbarColor: "#222 #060010",
+          scrollbarColor: displayScrollbar
+            ? isDark
+              ? "#222 #060010"
+              : "#94a3b8 #f1f5f9"
+            : undefined,
         }}
       >
         {items.map((item, index) => (
@@ -176,11 +191,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             }}
           >
             <div
-              className={`min-w-0 p-4 bg-[#111] rounded-lg ${
-                selectedIndex === index ? "bg-[#222]" : ""
+              className={`min-w-0 p-4 rounded-lg bg-white text-slate-900 dark:bg-[#111] dark:text-white ${
+                selectedIndex === index ? "bg-slate-100 dark:bg-[#222]" : ""
               } ${itemClassName}`}
             >
-              <p className="text-white m-0 wrap-break-word whitespace-normal text-sm sm:text-base">
+              <p className="m-0 wrap-break-word whitespace-normal text-sm sm:text-base">
                 {item}
               </p>
             </div>
@@ -190,11 +205,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       {showGradients && (
         <>
           <div
-            className="absolute top-0 left-0 right-0 h-[50px] bg-linear-to-b from-[#060010] to-transparent pointer-events-none transition-opacity duration-300 ease"
+            className="absolute top-0 left-0 right-0 h-[50px] bg-linear-to-b from-white dark:from-[#060010] to-transparent pointer-events-none transition-opacity duration-300 ease"
             style={{ opacity: topGradientOpacity }}
           ></div>
           <div
-            className="absolute bottom-0 left-0 right-0 h-[100px] bg-linear-to-t from-[#060010] to-transparent pointer-events-none transition-opacity duration-300 ease"
+            className="absolute bottom-0 left-0 right-0 h-[100px] bg-linear-to-t from-white dark:from-[#060010] to-transparent pointer-events-none transition-opacity duration-300 ease"
             style={{ opacity: bottomGradientOpacity }}
           ></div>
         </>

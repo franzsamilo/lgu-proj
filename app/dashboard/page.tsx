@@ -159,45 +159,45 @@ export default function DashboardPage() {
 
   const dockItems = [
     {
-      icon: <Wallet className="h-5 w-5 text-white" />,
+      icon: <Wallet className="h-5 w-5 text-slate-800 dark:text-white" />,
       label: "Pay",
       onClick: () => (window.location.href = "/payments"),
     },
     {
-      icon: <FileText className="h-5 w-5 text-white" />,
+      icon: <FileText className="h-5 w-5 text-slate-800 dark:text-white" />,
       label: "Docs",
       onClick: () => (window.location.href = "/requests"),
     },
     {
-      icon: <CalendarClock className="h-5 w-5 text-white" />,
+      icon: (
+        <CalendarClock className="h-5 w-5 text-slate-800 dark:text-white" />
+      ),
       label: "Book",
       onClick: () => (window.location.href = "/appointments"),
     },
     {
-      icon: <Megaphone className="h-5 w-5 text-white" />,
+      icon: <Megaphone className="h-5 w-5 text-slate-800 dark:text-white" />,
       label: "Report",
       onClick: () => (window.location.href = "/report"),
     },
     {
-      icon: <User className="h-5 w-5 text-white" />,
+      icon: <User className="h-5 w-5 text-slate-800 dark:text-white" />,
       label: "Me",
       onClick: () => (window.location.href = "/profile"),
     },
   ];
   return (
-    <div className="min-h-screen w-screen bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a] text-white">
+    <div className="min-h-screen w-full overflow-x-hidden bg-linear-to-b from-white via-slate-100 to-white text-slate-900 dark:from-[#0a1a3a] dark:via-[#0b1f48] dark:to-[#0a1a3a] dark:text-white">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 py-8 md:py-10 pb-24 md:pb-10">
         {/* Quick actions - desktop overlay */}
         <div className="hidden md:block">
           <CardNav
             logoAlt="MyLGU"
             brandLabel="MyLGU"
-            logoIcon={<Landmark className="h-6 w-6 text-white" />}
+            logoIcon={
+              <Landmark className="h-6 w-6 text-slate-800 dark:text-white" />
+            }
             items={cardNavItems}
-            baseColor="#0a122c"
-            menuColor="#ffffff"
-            buttonBgColor="#ffffff"
-            buttonTextColor="#0a122c"
           />
         </div>
 
@@ -205,12 +205,12 @@ export default function DashboardPage() {
         <div className="md:hidden fixed inset-x-0 bottom-0 z-60">
           <Dock
             items={dockItems}
-            className="border-white/10 bg-[#0b1f48]/80 backdrop-blur"
+            className="border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur"
           />
         </div>
         {/* Mobile header */}
         <div className="md:hidden mb-4 flex items-center justify-center gap-2">
-          <Landmark className="h-6 w-6 text-white" />
+          <Landmark className="h-6 w-6 text-slate-800 dark:text-white" />
           <span className="text-lg font-semibold tracking-tight">MyLGU</span>
         </div>
         {/* Header removed; CardNav serves as the primary header on desktop */}
@@ -219,26 +219,31 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05, duration: 0.45 }}
-          className="mt-10 md:mt-28 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5"
+          className="mt-10 md:mt-28 rounded-2xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 p-4 sm:p-5"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <div className="grid place-items-center size-10 sm:size-12 rounded-full bg-white/10">
+              <div className="grid place-items-center size-10 sm:size-12 rounded-full bg-slate-200 dark:bg-white/10">
                 <User className="size-5" />
               </div>
               <div>
-                <p className="text-sm text-zinc-300/90">Welcome</p>
+                <p className="text-sm text-slate-600 dark:text-zinc-300/90">
+                  Welcome
+                </p>
                 <p className="text-base sm:text-lg font-medium">
                   Let’s get things done with myLGU
                 </p>
-                <p className="text-xs sm:text-sm text-zinc-300/90">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-zinc-300/90">
                   Request documents, book appointments, pay dues, or report an
                   issue.
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button className="rounded-full border border-white/30 px-3 py-2 text-sm hover:bg-white/10 transition-colors">
+              <button
+                onClick={() => router.push("/profile")}
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-2 text-sm hover:bg_black/5 dark:hover:bg-white/10 transition-colors"
+              >
                 View Profile
               </button>
               <button
@@ -299,7 +304,7 @@ export default function DashboardPage() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3"
         >
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 lg:col-span-2">
+          <div className="rounded-2xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 p-4 lg:col-span-2">
             <h3 className="text-lg font-semibold">Recent Requests</h3>
             <ul className="mt-4 space-y-3">
               {[
@@ -325,10 +330,10 @@ export default function DashboardPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ delay: i * 0.05 }}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+                  className="flex items-center justify-between rounded-xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 px-4 py-3"
                 >
                   <span>{r.title}</span>
-                  <span className="text-sm text-zinc-300/90">
+                  <span className="text-sm text-slate-600 dark:text-zinc-300/90">
                     {r.status} • {r.time}
                   </span>
                 </motion.li>
@@ -336,7 +341,7 @@ export default function DashboardPage() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="rounded-2xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 p-4">
             <h3 className="text-lg font-semibold">Advisories</h3>
             <div className="mt-4 space-y-3">
               {[
@@ -350,10 +355,12 @@ export default function DashboardPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ delay: i * 0.05 }}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-3"
+                  className="flex items-center gap-3 rounded-xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 px-3 py-3"
                 >
                   <a.icon className="size-4 text-emerald-300" />
-                  <span className="text-sm text-zinc-200">{a.title}</span>
+                  <span className="text-sm text-slate-700 dark:text-zinc-200">
+                    {a.title}
+                  </span>
                 </motion.div>
               ))}
             </div>
@@ -364,9 +371,13 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="hidden md:block mt-10 rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
+          className="hidden md:block mt-10 rounded-2xl border border-black/10 bg-white/80 dark:border-white/10 dark:bg-white/5 overflow-hidden"
         >
-          <h3 className="px-4 pt-4 text-lg font-semibold">Highlights</h3>
+          <h3 className="px-4 pt-4 text-lg font-semibold">
+            <a href="/advisories" className="hover:underline">
+              Highlights
+            </a>
+          </h3>
           <div className="h-[220px] sm:h-[240px]">
             <FlowingMenu items={newsItems} />
           </div>
@@ -375,12 +386,12 @@ export default function DashboardPage() {
 
       {showStepper && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-4">
+          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Start a Request</h3>
               <button
                 onClick={() => setShowStepper(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
@@ -393,7 +404,9 @@ export default function DashboardPage() {
               >
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Choose a request type:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Choose a request type:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {[
                         "Barangay Clearance",
@@ -403,7 +416,7 @@ export default function DashboardPage() {
                       ].map((t) => (
                         <button
                           key={t}
-                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left hover:bg-white/10 transition-colors"
+                          className="rounded-xl border border-black/10 bg-white px-3 py-2 text-left hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition-colors"
                         >
                           {t}
                         </button>
@@ -413,37 +426,41 @@ export default function DashboardPage() {
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Enter basic details:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Enter basic details:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <input
                         placeholder="Full Name"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         placeholder="Contact Number"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         placeholder="Address"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none sm:col-span-2"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none sm:col-span-2 dark:bg-white/10 dark:border-white/10"
                       />
                     </div>
                   </div>
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">
+                    <p className="text-slate-600 dark:text-zinc-300/90">
                       Upload supporting documents (optional):
                     </p>
-                    <div className="rounded-xl border border-dashed border-white/20 bg-white/5 p-6 text-center">
+                    <div className="rounded-xl border border-dashed border-black/20 bg-white p-6 text-center dark:border-white/20 dark:bg-white/5">
                       Drop files here
                     </div>
                   </div>
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Review and submit</p>
-                    <p className="text-sm text-zinc-300/90">
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Review and submit
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-zinc-300/90">
                       We’ll route your request to the appropriate office.
                     </p>
                   </div>
@@ -458,12 +475,12 @@ export default function DashboardPage() {
       {/* Request Documents - Stepper */}
       {showDocs && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-4">
+          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Request Documents</h3>
               <button
                 onClick={() => setShowDocs(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
@@ -476,7 +493,9 @@ export default function DashboardPage() {
               >
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Select document type:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Select document type:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {[
                         "Barangay Clearance",
@@ -486,7 +505,7 @@ export default function DashboardPage() {
                       ].map((t) => (
                         <button
                           key={t}
-                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left hover:bg-white/10 transition-colors"
+                          className="rounded-xl border border-black/10 bg-white px-3 py-2 text-left hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition-colors"
                         >
                           {t}
                         </button>
@@ -496,31 +515,35 @@ export default function DashboardPage() {
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Applicant details:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Applicant details:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <input
                         placeholder="Full Name"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         placeholder="Contact Number"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         placeholder="Purpose"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none sm:col-span-2"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none sm:col-span-2 dark:bg-white/10 dark:border-white/10"
                       />
                     </div>
                   </div>
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Pickup/Delivery:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Pickup/Delivery:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <button className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">
+                      <button className="rounded-lg border border-black/10 bg-white px-3 py-2 hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                         Pickup at City Hall
                       </button>
-                      <button className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">
+                      <button className="rounded-lg border border-black/10 bg-white px-3 py-2 hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                         Deliver to Address
                       </button>
                     </div>
@@ -528,8 +551,10 @@ export default function DashboardPage() {
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Review and submit</p>
-                    <p className="text-sm text-zinc-300/90">
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Review and submit
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-zinc-300/90">
                       We’ll process your document and notify you when it’s
                       ready.
                     </p>
@@ -544,12 +569,12 @@ export default function DashboardPage() {
       {/* Book Appointment - Stepper */}
       {showAppt && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-4">
+          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Book Appointment</h3>
               <button
                 onClick={() => setShowAppt(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
@@ -562,7 +587,9 @@ export default function DashboardPage() {
               >
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Choose office:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Choose office:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {[
                         "Treasurer",
@@ -572,7 +599,7 @@ export default function DashboardPage() {
                       ].map((t) => (
                         <button
                           key={t}
-                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left hover:bg-white/10 transition-colors"
+                          className="rounded-xl border border-black/10 bg-white px-3 py-2 text-left hover:bg-black/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition-colors"
                         >
                           {t}
                         </button>
@@ -582,38 +609,44 @@ export default function DashboardPage() {
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Pick date & time:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Pick date & time:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <input
                         type="date"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         type="time"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                     </div>
                   </div>
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Contact details:</p>
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Contact details:
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <input
                         placeholder="Full Name"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                       <input
                         placeholder="Email"
-                        className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                        className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
                       />
                     </div>
                   </div>
                 </Step>
                 <Step>
                   <div className="space-y-2">
-                    <p className="text-zinc-300/90">Confirm appointment</p>
-                    <p className="text-sm text-zinc-300/90">
+                    <p className="text-slate-600 dark:text-zinc-300/90">
+                      Confirm appointment
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-zinc-300/90">
                       You’ll receive a confirmation and reminders.
                     </p>
                   </div>
@@ -627,12 +660,12 @@ export default function DashboardPage() {
       {/* Emergency Hotlines - AnimatedList */}
       {showHotlines && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-4">
+          <div className="w-full max-w-md rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Emergency Hotlines</h3>
               <button
                 onClick={() => setShowHotlines(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
@@ -645,6 +678,16 @@ export default function DashboardPage() {
                   "MDRRMO – 0917-123-4567",
                   "Ambulance – 911",
                   "Rescue – 8888",
+                  "City Hospital ER – (02) 8890-1234",
+                  "City Health Office – (02) 8891-5678",
+                  "Red Cross – 143",
+                  "Coast Guard – (02) 8527-8481",
+                  "Traffic Management – 136",
+                  "Barangay Hall (San Isidro) – 0999-222-3333",
+                  "Barangay Hall (Sta. Cruz) – 0999-444-5555",
+                  "Electric Co. (Outage) – 1622",
+                  "Waterworks (Leak) – (02) 8892-0000",
+                  "DSWD Hotline – 8888-3793",
                 ]}
                 displayScrollbar
               />
@@ -656,18 +699,18 @@ export default function DashboardPage() {
       {/* Report an Issue - Custom Modal */}
       {showReport && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-4">
+          <div className="w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Report an Issue</h3>
               <button
                 onClick={() => setShowReport(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
             </div>
             <div className="mt-4 grid grid-cols-1 gap-2">
-              <select className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none">
+              <select className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10">
                 <option>Road damage</option>
                 <option>Garbage collection</option>
                 <option>Street lights</option>
@@ -675,14 +718,14 @@ export default function DashboardPage() {
               </select>
               <textarea
                 placeholder="Describe the issue..."
-                className="min-h-[100px] w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                className="min-h-[100px] w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
               />
               <input
                 placeholder="Location (optional)"
-                className="w-full rounded-lg bg-white/10 px-3 py-2 outline-none"
+                className="w-full rounded-lg bg-white border border-black/10 px-3 py-2 outline-none dark:bg-white/10 dark:border-white/10"
               />
               <div className="flex items-center gap-2">
-                <button className="rounded-lg border border-white/20 px-3 py-2 hover:bg-white/10">
+                <button className="rounded-lg border border-black/20 px-3 py-2 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10">
                   Attach Photo
                 </button>
                 <button className="rounded-lg bg-white text-black px-3 py-2 font-medium hover:bg-zinc-200">
@@ -697,12 +740,12 @@ export default function DashboardPage() {
       {/* Service Map - DomeGallery */}
       {showMap && (
         <div className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 p-3 sm:p-4">
-          <div className="w-full max-w-4xl h-[70vh] rounded-2xl border border-white/10 bg-[#0b1f48]/80 backdrop-blur p-2">
+          <div className="w-full max-w-4xl h-[70vh] rounded-2xl border border-black/10 bg-white/90 dark:border-white/10 dark:bg-[#0b1f48]/80 backdrop-blur p-2">
             <div className="flex items-center justify-between px-2">
               <h3 className="text-lg font-semibold">Service Map</h3>
               <button
                 onClick={() => setShowMap(false)}
-                className="rounded-full border border-white/30 px-3 py-1 text-sm hover:bg-white/10 transition-colors"
+                className="rounded-full border border-slate-300 dark:border-white/30 px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
               >
                 Close
               </button>
@@ -777,15 +820,19 @@ function ServiceCard({
       onClick={onClick}
     >
       <div className="flex items-start gap-3">
-        <div className="rounded-xl bg-white/10 p-2">
+        <div className="rounded-xl bg-slate-200 dark:bg-white/10 p-2">
           <Icon className="size-5" />
         </div>
         <div>
           <div className="font-medium">{title}</div>
-          <p className="mt-1 text-sm text-zinc-300/90">{description}</p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-zinc-300/90">
+            {description}
+          </p>
         </div>
       </div>
-      <div className="mt-4 text-sm text-zinc-300/90">Proceed →</div>
+      <div className="mt-4 text-sm text-slate-600 dark:text-zinc-300/90">
+        Proceed →
+      </div>
     </motion.button>
   );
 }

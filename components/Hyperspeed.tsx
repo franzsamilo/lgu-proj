@@ -1319,9 +1319,29 @@ class App {
 }
 
 const Hyperspeed: FC<HyperspeedProps> = ({ effectOptions = {} }) => {
+  // Merge options and adapt palette to current theme (light vs dark)
+  const isDark =
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : true;
+  const lightPalette: Colors = {
+    roadColor: 0xe5e7eb, // slate-200
+    islandColor: 0xf1f5f9, // slate-100
+    background: 0xffffff,
+    shoulderLines: 0x0a0a0a,
+    brokenLines: 0x0a0a0a,
+    leftCars: [0x5eead4, 0x93c5fd, 0x60a5fa], // teal-300, blue-300, sky-400
+    rightCars: [0x86efac, 0x7dd3fc, 0x22d3ee], // green-300, sky-300, cyan-400
+    sticks: 0x22d3ee, // cyan-400
+  };
   const mergedOptions: HyperspeedOptions = {
     ...defaultOptions,
     ...effectOptions,
+    colors: effectOptions.colors
+      ? { ...defaultOptions.colors, ...effectOptions.colors }
+      : isDark
+        ? defaultOptions.colors
+        : lightPalette,
   };
   const hyperspeed = useRef<HTMLDivElement>(null);
   const appRef = useRef<App | null>(null);

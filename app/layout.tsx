@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeToggle from "../components/ThemeToggle";
 import Script from "next/script";
+import PageTransition from "../components/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,14 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         {/* Early theme apply to avoid FOUC */}
         <Script id="theme-init" strategy="beforeInteractive">
           {`try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}`}
         </Script>
         <ThemeToggle />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

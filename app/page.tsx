@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Hyperspeed from "../components/Hyperspeed";
 import Masonry from "../components/Masonry";
@@ -8,6 +8,15 @@ import VariableProximity from "../components/VariableProximity";
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement | null>(null);
+  const [isDark, setIsDark] = useState(true);
+  useEffect(() => {
+    const root = document.documentElement;
+    const apply = () => setIsDark(root.classList.contains("dark"));
+    apply();
+    const obs = new MutationObserver(apply);
+    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
   const masonryItems = [
     {
       id: "1",
@@ -62,14 +71,22 @@ export default function Home() {
     ...masonryItems,
     ...masonryItems.map((i) => ({ ...i, id: `a-${i.id}` })),
     ...masonryItems.map((i) => ({ ...i, id: `b-${i.id}` })),
+    ...masonryItems.map((i) => ({ ...i, id: `c-${i.id}` })),
+    ...masonryItems.map((i) => ({ ...i, id: `d-${i.id}` })),
+    ...masonryItems.map((i) => ({ ...i, id: `e-${i.id}` })),
+    ...masonryItems.map((i) => ({ ...i, id: `f-${i.id}` })),
   ];
   return (
-    <div className="h-screen w-screen overflow-y-scroll snap-y snap-mandatory bg-[#0a1a3a] font-sans">
+    <div className="h-screen w-full overflow-x-hidden overflow-y-scroll snap-y snap-mandatory bg-white dark:bg-[#0a1a3a] text-slate-900 dark:text-white font-sans">
       {/* Section 1: Greeting with Hyperspeed */}
-      <section className="relative isolate overflow-hidden h-screen snap-start bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a]">
+      <section className="relative isolate overflow-hidden h-screen snap-start bg-linear-to-b from-white via-slate-100 to-white dark:from-[#0a1a3a] dark:via-[#0b1f48] dark:to-[#0a1a3a]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Aurora
-            colorStops={["#1e293b", "#2563eb", "#22d3ee"]}
+            colorStops={
+              isDark
+                ? ["#1e293b", "#2563eb", "#22d3ee"]
+                : ["#a7f3d0", "#93c5fd", "#a7f3d0"]
+            }
             amplitude={1.2}
             blend={0.6}
           />
@@ -80,22 +97,25 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 flex h-full items-center justify-center">
-          <div ref={heroRef} className="mx-auto max-w-4xl px-6 text-center mt-12 md:mt-24">
+          <div
+            ref={heroRef}
+            className="mx-auto max-w-4xl px-6 text-center mt-12 md:mt-24"
+          >
             <VariableProximity
               label="Welcome to MyLGU"
               fromFontVariationSettings="'wght' 500"
               toFontVariationSettings="'wght' 900"
               containerRef={heroRef}
-              className="block text-4xl sm:text-6xl font-semibold tracking-tight text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
+              className="block text-4xl sm:text-6xl font-semibold tracking-tight text-slate-900 dark:text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             />
-            <p className="mt-6 text-lg sm:text-xl leading-relaxed text-zinc-300/90">
+            <p className="mt-6 text-lg sm:text-xl leading-relaxed text-slate-600 dark:text-zinc-300/90">
               Your local government services, faster and smarter.
             </p>
           </div>
         </div>
         <a
           href="#highlights"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-zinc-300/70 hover:text-white transition-colors"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-slate-500 hover:text-slate-700 dark:text-zinc-300/70 dark:hover:text-white transition-colors"
           aria-label="Scroll down"
         >
           <svg
@@ -115,42 +135,55 @@ export default function Home() {
       </section>
 
       {/* Section 2: Masonry showcase */}
-      <section id="highlights" className="relative isolate overflow-hidden h-screen snap-start flex items-center justify-center bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a]">
+      <section
+        id="highlights"
+        className="relative isolate overflow-hidden h-screen snap-start flex flex-col items-center justify-start bg-linear-to-b from-white via-slate-100 to-white dark:from-[#0a1a3a] dark:via-[#0b1f48] dark:to-[#0a1a3a]"
+      >
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Aurora
-            colorStops={["#1e293b", "#2563eb", "#22d3ee"]}
+            colorStops={
+              isDark
+                ? ["#1e293b", "#2563eb", "#22d3ee"]
+                : ["#a7f3d0", "#93c5fd", "#a7f3d0"]
+            }
             amplitude={1.2}
             blend={0.6}
           />
         </div>
-        <div className="relative z-10 h-[80vh] w-full max-w-6xl px-6">
-          <div className="mb-6">
-            <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
+        <div className="relative z-10 w-full max-w-6xl px-6 py-8 h-full flex flex-col">
+          <div className="mb-4 shrink-0">
+            <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">
               Explore Highlights
             </h2>
-            <p className="mt-2 text-base sm:text-lg leading-relaxed text-zinc-300/90">
+            <p className="mt-2 text-base sm:text-lg leading-relaxed text-slate-600 dark:text-zinc-300/90">
               Projects, places, and moments around our LGU.
             </p>
           </div>
-          <Masonry items={galleryItems} />
+          <div className="flex-1 min-h-0 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 dark:[&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-track]:bg-transparent">
+            <Masonry items={galleryItems} />
+          </div>
         </div>
       </section>
 
       {/* Section 3: CTA with Aurora background */}
-      <section className="relative isolate overflow-hidden h-screen snap-start bg-linear-to-b from-[#0a1a3a] via-[#0b1f48] to-[#0a1a3a]">
+      <section className="relative isolate overflow-hidden h-screen snap-start bg-linear-to-b from-white via-slate-100 to-white dark:from-[#0a1a3a] dark:via-[#0b1f48] dark:to-[#0a1a3a]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Aurora
-            colorStops={["#1e293b", "#2563eb", "#22d3ee"]}
+            colorStops={
+              isDark
+                ? ["#1e293b", "#2563eb", "#22d3ee"]
+                : ["#a7f3d0", "#93c5fd", "#a7f3d0"]
+            }
             amplitude={1.2}
             blend={0.6}
           />
         </div>
         <div className="relative z-10 flex h-full items-center justify-center">
           <div className="mx-auto max-w-3xl px-6 text-center">
-            <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white">
+            <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">
               Ready to get started?
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-zinc-300/90">
+            <p className="mt-4 text-lg leading-relaxed text-slate-600 dark:text-zinc-300/90">
               Access personalized services and manage your requests.
             </p>
             <div className="mt-8 flex items-center justify-center gap-4">
@@ -162,7 +195,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/register"
-                className="rounded-full border border-white/40 text-white px-6 py-3 font-medium transition-colors hover:bg-white/10"
+                className="rounded-full border border-slate-300 text-slate-900 px-6 py-3 font-medium transition-colors hover:bg-black/5 dark:border-white/40 dark:text-white dark:hover:bg-white/10"
               >
                 Create an Account
               </Link>
